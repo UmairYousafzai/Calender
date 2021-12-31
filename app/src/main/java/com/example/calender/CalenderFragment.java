@@ -4,22 +4,89 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.calender.adapter.CalendarRecyclerAdapter;
 import com.example.calender.databinding.FragmentCalenderBinding;
+
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 public class CalenderFragment extends Fragment {
 
 
-    FragmentCalenderBinding mBinding;
+    private FragmentCalenderBinding mBinding;
+    private CalendarRecyclerAdapter adapter;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mBinding = FragmentCalenderBinding.inflate(inflater,container,false);
         return mBinding.getRoot();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        setUpRecyclerView();
+
+
+        setCalendar();
+    }
+
+    private void setUpRecyclerView() {
+
+        mBinding.calenderCellRecyclerView.setLayoutManager(new GridLayoutManager(requireContext(),7));
+        adapter = new CalendarRecyclerAdapter();
+        mBinding.calenderCellRecyclerView.setAdapter(adapter);
+
+
+
+    }
+
+    public void setCalendar()
+    {
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat format = new SimpleDateFormat("MMMM yyyy");
+
+
+        String date = format.format(calendar.getTime());
+        mBinding.monthYearTextView.setText(date);
+
+        calendar.set(Calendar.DAY_OF_MONTH,1);
+        int startingDayOfWeek = calendar.get(Calendar.DAY_OF_WEEK)-1;
+
+        calendar.set(Calendar.DAY_OF_MONTH-1,-startingDayOfWeek);
+
+        int daysInMonth= calendar.getActualMaximum(Calendar.DAY_OF_MONTH)+1;
+
+        List<String> dayInMonth= new ArrayList<>();
+
+        int counter = 1;
+        for (int i=1; i<startingDayOfWeek;i++)
+        {
+
+                dayInMonth.add(" ");
+
+
+
+
+        }
+
+        for (int i=1; i<=daysInMonth;i++)
+        {
+            dayInMonth.add(String.valueOf(i));
+        }
+        adapter.setDaysInMonth(dayInMonth);
     }
 }
