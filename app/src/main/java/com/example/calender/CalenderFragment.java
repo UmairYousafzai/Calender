@@ -26,6 +26,7 @@ public class CalenderFragment extends Fragment {
 
     private FragmentCalenderBinding mBinding;
     private CalendarRecyclerAdapter adapter;
+    private int backCount=0;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -41,24 +42,50 @@ public class CalenderFragment extends Fragment {
         setUpRecyclerView();
 
 
-        setCalendar();
+        setCalendar(0);
+        btnListener();
+    }
+
+    private void btnListener() {
+
+        mBinding.btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                backCount = backCount-1;
+                setCalendar(backCount);
+
+            }
+        });
+
+        mBinding.btnForward.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                backCount = backCount+1;
+                setCalendar(backCount);
+
+            }
+        });
     }
 
     private void setUpRecyclerView() {
 
         mBinding.calenderCellRecyclerView.setLayoutManager(new GridLayoutManager(requireContext(),7));
-        adapter = new CalendarRecyclerAdapter();
+        adapter = new CalendarRecyclerAdapter(this);
         mBinding.calenderCellRecyclerView.setAdapter(adapter);
-
-
 
     }
 
-    public void setCalendar()
+    public void setCalendar(int key)
     {
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat format = new SimpleDateFormat("MMMM yyyy");
 
+        calendar.get(Calendar.MONTH+key++);
+
+
+        calendar.add(Calendar.MONTH,key);
 
         String date = format.format(calendar.getTime());
         mBinding.monthYearTextView.setText(date);

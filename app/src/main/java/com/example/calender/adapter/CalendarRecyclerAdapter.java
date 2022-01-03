@@ -5,8 +5,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.calender.CalenderFragmentDirections;
 import com.example.calender.databinding.CalendarCellLayoutBinding;
 
 import java.util.ArrayList;
@@ -16,10 +21,13 @@ public class CalendarRecyclerAdapter extends RecyclerView.Adapter<CalendarRecycl
 
     private LayoutInflater layoutInflater;
     private List<String> daysInMonth;
+    private boolean isClick=true;
+    private Fragment fragment;
 
 
-    public CalendarRecyclerAdapter() {
+    public CalendarRecyclerAdapter(Fragment fragment) {
         daysInMonth= new ArrayList<>();
+        this.fragment = fragment;
     }
 
     @NonNull
@@ -64,6 +72,38 @@ public class CalendarRecyclerAdapter extends RecyclerView.Adapter<CalendarRecycl
             super(binding.getRoot());
 
             mBinding= binding;
+
+            mBinding.parent.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    if (isClick)
+                    {
+                        mBinding.addBtn.setVisibility(View.VISIBLE);
+                        isClick= false;
+
+                    }
+                    else
+                    {
+                        mBinding.addBtn.setVisibility(View.GONE);
+                        isClick= true;
+                    }
+
+                }
+            });
+
+            mBinding.addBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    NavController navController = NavHostFragment.findNavController(fragment);
+
+                    NavDirections navDirections = CalenderFragmentDirections.actionCalenderFragmentToAddScheduleFragment();
+
+                    navController.navigate(navDirections);
+
+                }
+            });
         }
     }
 }
