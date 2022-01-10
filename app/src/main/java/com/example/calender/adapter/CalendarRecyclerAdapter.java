@@ -1,18 +1,19 @@
 package com.example.calender.adapter;
 
+import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.NavDirections;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.calender.CalenderFragmentDirections;
+import com.example.calender.R;
+import com.example.calender.clickListener.OnCLickListener;
 import com.example.calender.databinding.CalendarCellLayoutBinding;
+import com.example.calender.models.CustomDate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,14 +21,18 @@ import java.util.List;
 public class CalendarRecyclerAdapter extends RecyclerView.Adapter<CalendarRecyclerAdapter.CalenderViewHolder>  {
 
     private LayoutInflater layoutInflater;
-    private List<String> daysInMonth;
+    private List<CustomDate> customDateList;
     private boolean isClick=true;
-    private Fragment fragment;
+    private int position =-1;
+
+    private OnCLickListener listener;
+    private View view;
+    private Context context;
 
 
-    public CalendarRecyclerAdapter(Fragment fragment) {
-        daysInMonth= new ArrayList<>();
-        this.fragment = fragment;
+    public CalendarRecyclerAdapter(Context context) {
+        customDateList = new ArrayList<>();
+        this.context = context;
     }
 
     @NonNull
@@ -46,20 +51,46 @@ public class CalendarRecyclerAdapter extends RecyclerView.Adapter<CalendarRecycl
 
     @Override
     public void onBindViewHolder(@NonNull CalenderViewHolder holder, int position) {
-        holder.mBinding.dateTextView.setText(daysInMonth.get(position));
 
+        CustomDate customDate= customDateList.get(position);
+
+
+        if (customDate.getDay()!=0)
+        {
+            if (customDate.isCurrentDate())
+            {
+                holder.mBinding.dateTextView.setTextColor(Color.parseColor("#286A9C"));
+                holder.mBinding.dateTextView.setTypeface(holder.mBinding.dateTextView.getTypeface(), Typeface.BOLD);
+                holder.mBinding.dateTextView.setTextSize(30f);
+                holder.mBinding.dateTextView.setText(String.valueOf(customDate.getDay()));
+                holder.mBinding.dateTextView.setCompoundDrawablesWithIntrinsicBounds(0,R.drawable.ic_baseline_circle_24, 0, 0);
+//                holder.mBinding.dateTextView.setTextColor(Color.parseColor("#FF000000"));
+//                holder.mBinding.dateTextView.setTypeface(holder.mBinding.dateTextView.getTypeface(), Typeface.NORMAL);
+
+            }else
+            {
+                holder.mBinding.dateTextView.setText(String.valueOf(customDate.getDay()));
+            }
+
+        }
+
+
+    }
+    public void setOnClickListener(OnCLickListener listener)
+    {
+        this.listener = listener;
     }
 
     @Override
     public int getItemCount() {
-        return daysInMonth.size();
+        return customDateList.size();
     }
 
-    public void setDaysInMonth(List<String > list)
+    public void setCustomDateList(List<CustomDate > list)
     {
         if (list!=null)
         {
-            daysInMonth = list;
+            customDateList = list;
             notifyDataSetChanged();
         }
     }
@@ -73,13 +104,26 @@ public class CalendarRecyclerAdapter extends RecyclerView.Adapter<CalendarRecycl
 
             mBinding= binding;
 
+
             mBinding.parent.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    if (isClick)
+                    if (view!=null)
                     {
+                        if (view.getVisibility()==View.VISIBLE)
+                        {
+                            view.setVisibility(View.GONE);
+
+                        }
+                    }
+
+
+                        if (isClick)
+                    {
+
                         mBinding.addBtn.setVisibility(View.VISIBLE);
+                       view=  mBinding.addBtn;
                         isClick= false;
 
                     }
@@ -96,11 +140,9 @@ public class CalendarRecyclerAdapter extends RecyclerView.Adapter<CalendarRecycl
                 @Override
                 public void onClick(View v) {
 
-                    NavController navController = NavHostFragment.findNavController(fragment);
+                    listener.onClick(customDateList.get(getAdapterPosition()));
 
-                    NavDirections navDirections = CalenderFragmentDirections.actionCalenderFragmentToAddScheduleFragment();
 
-                    navController.navigate(navDirections);
 
                 }
             });

@@ -23,5 +23,11 @@
         android:id="@+id/addScheduleFragment"
         android:name="com.example.calender.AddScheduleFragment"
         android:label="AddScheduleFragment"
-        tools:layout="@layout/fragment_add_schedule"/>
+        tools:layout="@layout/fragment_add_schedule">
+
+        <argument
+            android:name="date"
+            app:argType="com.example.calender.models.CustomDate"
+            app:nullable="true" />
+    </fragment>
 </navigation>
