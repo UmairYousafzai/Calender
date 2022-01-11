@@ -26,7 +26,7 @@ public class Alarm {
     private  int day ,month, year;
 
     private int hour, minute;
-    private boolean started, recurring ,daily, monthly , yearly;
+    private boolean started;
     private boolean monday, tuesday, wednesday, thursday, friday, saturday, sunday  ;
     private String title;
     private AlarmManager alarmManager ;
@@ -43,7 +43,7 @@ public class Alarm {
         this.minute = minute;
         this.started = started;
 
-        this.recurring = recurring;
+
 
         this.monday = monday;
         this.tuesday = tuesday;
@@ -52,9 +52,7 @@ public class Alarm {
         this.friday = friday;
         this.saturday = saturday;
         this.sunday = sunday;
-        this.daily = daily;
-        this.monthly = monthly;
-        this.yearly = yearly;
+
         this.day = day;
         this.month = month;
         this.year = year;
@@ -63,18 +61,10 @@ public class Alarm {
 
     public void schedule(Context context) {
         alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-       if (daily)
-       {
+
            setDailyAlarm(context);
-       }
-       else if (monthly)
-       {
-           setMonthlyAlarm(context);
-       }
-       else if (yearly)
-       {
-           setYearlyAlarm(context);
-       }
+
+
     }
 
     private String getRecurringDaysText() {
@@ -114,7 +104,6 @@ public class Alarm {
     {
 
         Intent intent = new Intent(context, AlarmBroadcastReceiver.class);
-        intent.putExtra(RECURRING, recurring);
         intent.putExtra(MONDAY, monday);
         intent.putExtra(TUESDAY, tuesday);
         intent.putExtra(WEDNESDAY, wednesday);
@@ -141,8 +130,7 @@ public class Alarm {
         }
 
 
-        if (!recurring) {
-            String toastText = null;
+           String toastText = null;
             try {
                 toastText = String.format("One Time Alarm %s scheduled for %s at %02d:%02d", title, getRecurringDaysText(), hour, minute, alarmId);
             } catch (Exception e) {
@@ -150,198 +138,19 @@ public class Alarm {
             }
             Toast.makeText(context, toastText, Toast.LENGTH_LONG).show();
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                alarmManager.setExact(
-                        AlarmManager.RTC_WAKEUP,
-                        calendar.getTimeInMillis(),
-                        alarmPendingIntent
-                );
-            }
-        } else {
-            String toastText = String.format("Recurring Alarm %s scheduled for %s at %02d:%02d", title, getRecurringDaysText(), hour, minute, alarmId);
-            Toast.makeText(context, toastText, Toast.LENGTH_LONG).show();
 
-            final long RUN_DAILY = 24 * 60 * 60 * 1000;
-
-            alarmManager.setRepeating(
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            alarmManager.setExact(
                     AlarmManager.RTC_WAKEUP,
                     calendar.getTimeInMillis(),
-                    RUN_DAILY,
                     alarmPendingIntent
             );
         }
+
 
         this.started = true;
     }
 
 
-    public void setMonthlyAlarm(Context context)
-    {
 
-        Intent intent = new Intent(context, AlarmBroadcastReceiver.class);
-        intent.putExtra(RECURRING, recurring);
-        intent.putExtra(TITLE, title);
-
-        PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(context, alarmId, intent, 0);
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, hour);
-        calendar.set(Calendar.MINUTE, minute);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-        calendar.set(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),day);
-
-        // if alarm time has already passed, increment day by 1
-        if (monthly)
-        {
-            if (calendar.getTimeInMillis() <= System.currentTimeMillis()) {
-                calendar.set(Calendar.MONTH, calendar.get(Calendar.MONTH) + 1);
-            }
-        }
-
-
-
-        if (!recurring) {
-            String toastText = null;
-            try {
-                toastText = String.format("One Time Alarm %s scheduled for %s at %02d:%02d", title, "Next Month", hour, minute, alarmId);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            Toast.makeText(context, toastText, Toast.LENGTH_LONG).show();
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                alarmManager.setExact(
-                        AlarmManager.RTC_WAKEUP,
-                        calendar.getTimeInMillis(),
-                        alarmPendingIntent
-                );
-            }
-        } else {
-            String toastText = String.format("Recurring Alarm %s scheduled for %s at %02d:%02d", title, getRecurringDaysText(), hour, minute, alarmId);
-            Toast.makeText(context, toastText, Toast.LENGTH_LONG).show();
-
-            final long milliSeconds =getTimeDifferenceInMilliSeconds(1);
-
-            alarmManager.setRepeating(
-                    AlarmManager.RTC_WAKEUP,
-                    calendar.getTimeInMillis(),
-                    milliSeconds,
-                    alarmPendingIntent
-            );
-        }
-
-        this.started = true;
-    }
-
-
-    public void setYearlyAlarm(Context context)
-    {
-
-        Intent intent = new Intent(context, AlarmBroadcastReceiver.class);
-        intent.putExtra(RECURRING, recurring);
-        intent.putExtra(TITLE, title);
-
-        PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(context, alarmId, intent, 0);
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, hour);
-        calendar.set(Calendar.MINUTE, minute);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-        calendar.set(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),day);
-
-        // if alarm time has already passed, increment day by 1
-        if (yearly)
-        {
-            if (calendar.getTimeInMillis() <= System.currentTimeMillis()) {
-                calendar.set(Calendar.YEAR, calendar.get(Calendar.YEAR) + 1);
-            }
-        }
-
-
-
-        if (!recurring) {
-            String toastText = null;
-            try {
-                toastText = String.format("One Time Alarm %s scheduled for %s at %02d:%02d", title, "Next Month", hour, minute, alarmId);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            Toast.makeText(context, toastText, Toast.LENGTH_LONG).show();
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                alarmManager.setExact(
-                        AlarmManager.RTC_WAKEUP,
-                        calendar.getTimeInMillis(),
-                        alarmPendingIntent
-                );
-            }
-        } else {
-            String toastText = String.format("Recurring Alarm %s scheduled for %s at %02d:%02d", title, getRecurringDaysText(), hour, minute, alarmId);
-            Toast.makeText(context, toastText, Toast.LENGTH_LONG).show();
-
-            final long milliSeconds =getTimeDifferenceInMilliSeconds(2);
-
-            alarmManager.setRepeating(
-                    AlarmManager.RTC_WAKEUP,
-                    calendar.getTimeInMillis(),
-                    milliSeconds,
-                    alarmPendingIntent
-            );
-        }
-
-        this.started = true;
-    }
-
-    public long getTimeDifferenceInMilliSeconds(int key)
-    {
-
-        Calendar currentCalendar= Calendar.getInstance();
-        Calendar futureCalendar= Calendar.getInstance();
-
-        long currentMilliSeconds=  currentCalendar.getTimeInMillis();
-        long futureMilliSeconds=0;
-        long finalMilliSeconds=0;
-
-        if (key==1)
-        {
-            if (currentCalendar.after(day))
-            {
-                futureCalendar.set(currentCalendar.get(Calendar.YEAR),currentCalendar.get(Calendar.MONTH)+1,day);
-
-                futureMilliSeconds = futureCalendar.getTimeInMillis();
-                finalMilliSeconds= futureMilliSeconds -currentMilliSeconds;
-            }
-            else
-            {
-                futureCalendar.set(currentCalendar.get(Calendar.YEAR),currentCalendar.get(Calendar.MONTH),day);
-
-                futureMilliSeconds = futureCalendar.getTimeInMillis();
-                finalMilliSeconds= futureMilliSeconds -currentMilliSeconds;
-            }
-
-        }
-        else if (key==2)
-        {
-            if (currentCalendar.after(month))
-            {
-                futureCalendar.set(currentCalendar.get(Calendar.YEAR)+1,month,day);
-
-                futureMilliSeconds = futureCalendar.getTimeInMillis();
-                finalMilliSeconds= futureMilliSeconds -currentMilliSeconds;
-            }
-            else
-            {
-                futureCalendar.set(currentCalendar.get(Calendar.YEAR),month,day);
-
-                futureMilliSeconds = futureCalendar.getTimeInMillis();
-                finalMilliSeconds= futureMilliSeconds -currentMilliSeconds;
-            }
-
-        }
-        return finalMilliSeconds;
-    }
 }

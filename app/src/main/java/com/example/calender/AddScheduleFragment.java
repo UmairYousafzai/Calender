@@ -21,16 +21,15 @@ import com.example.calender.models.CustomDate;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Random;
 
 public class AddScheduleFragment extends Fragment {
 
     private FragmentAddScheduleBinding mBinding;
-    private String[] eventTypeArray = {"Call", "Meeting", "Task", "Travel", "Reminder"};
-    private String[] guestTypeArray = {"Doctor", "Farm", "Hospital", "Customer", "User"};
-    private String[] reminderArray = {"daily", "Weekly", "Monthly", "Yearly"};
+
     private CustomDate customDate;
     private Calendar calendar;
-    private int mMonth = -1, mDay = 0, mYear = 0 , hour=0, mMinute=0;
+    private int mMonth = -1, mDay = 0, mYear = 0 , mHour=0, mMinute=0;
 
 
     @Override
@@ -167,7 +166,7 @@ public class AddScheduleFragment extends Fragment {
                 TimePickerDialog timePickerDialog = new TimePickerDialog(requireContext(), new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        hour= hourOfDay;
+                        mHour= hourOfDay;
                         mMinute =minute;
                         String openingTime = hourOfDay + " : " + minute;
                         mBinding.timeStart.setText(openingTime);
@@ -177,7 +176,27 @@ public class AddScheduleFragment extends Fragment {
             }
         });
 
-        mBinding.btnAdd.setOnClickListener(new View.OnClickListener() {
+        mBinding.timeEnd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Calendar calendar = Calendar.getInstance();
+                int Hour = calendar.get(Calendar.HOUR_OF_DAY);
+                int Minute = calendar.get(Calendar.MINUTE);
+                TimePickerDialog timePickerDialog = new TimePickerDialog(requireContext(), new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        mHour= hourOfDay;
+                        mMinute =minute;
+                        String openingTime = hourOfDay + " : " + minute;
+                        mBinding.timeEnd.setText(openingTime);
+                    }
+                }, Hour, Minute, false);
+                timePickerDialog.show();
+            }
+        });
+
+        mBinding.saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -188,6 +207,37 @@ public class AddScheduleFragment extends Fragment {
     }
 
     private void setAlarm() {
+        int alarmId = new Random().nextInt(Integer.MAX_VALUE);
+        String notificationTime= mBinding.spinnerReminder.getSelectedItem().toString();
+
+        Calendar calendar= Calendar.getInstance();
+
+
+        if (mBinding.allDaySwitch.isChecked())
+        {
+            calendar.set(Calendar.HOUR_OF_DAY,8);
+            calendar.set(Calendar.MINUTE,0);
+            calendar.set(Calendar.SECOND, 0);
+            calendar.set(Calendar.MILLISECOND, 0);
+
+
+            int hour = Integer.parseInt(notificationTime.substring(0,2));
+            calendar.set(Calendar.HOUR_OF_DAY,hour-8 );
+            mHour = calendar.get(Calendar.HOUR_OF_DAY);
+            hour= hour-2;
+            if (hour>=0)
+            {
+
+            }
+
+        }
+
+//
+//
+//        Alarm alarm = new Alarm(alarmId,mHour,mMinute,"Alarm",true,true,
+//                true,true,true,true,true,true,true,
+//                true,false,false,mDay,mMonth,mYear);
+//        alarm.schedule(requireContext());
 
     }
 
@@ -209,6 +259,11 @@ public class AddScheduleFragment extends Fragment {
 
     private void setUpSpinners() {
 
+         final String[] eventTypeArray = {"Call", "Meeting", "Task", "Travel", "Reminder"};
+         final String[] guestTypeArray = {"Doctor", "Farm", "Hospital", "Customer", "User"};
+         final String[] reminderArray = {"At time event", "1 minute before", "5 minute before", "10 minutes before", "15 minutes before",
+                 "20 minutes before", "25 minutes before", "30 minutes before", "45 minutes before", "1 hour before", "2 hours before",
+                 "3 hours before", "12 hours before", "1 day before", "2 days before" };
         ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_dropdown_item, eventTypeArray);
         mBinding.spinnerEvent.setAdapter(adapter);
 
@@ -216,6 +271,6 @@ public class AddScheduleFragment extends Fragment {
         mBinding.spinnerGuestTypeSelection.setAdapter(adapter);
 
         adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_dropdown_item, reminderArray);
-        mBinding.spinnerGuestTypeSelection.setAdapter(adapter);
+        mBinding.spinnerReminder.setAdapter(adapter);
     }
 }

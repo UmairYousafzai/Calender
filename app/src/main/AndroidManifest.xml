@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".service.AlarmService" />
+        <service android:name=".services.AlarmService" />
 
         <receiver android:name=".broadCastReceivers.AlarmBroadcastReceiver">
             <intent-filter>

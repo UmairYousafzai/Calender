@@ -1,4 +1,4 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -6,490 +6,487 @@
     android:orientation="vertical"
     >
 
-    <LinearLayout
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/save_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:textColor="@color/white"
+        android:layout_margin="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:backgroundTint="@color/APP_Theme_Color"
+        app:icon="@drawable/ic_baseline_check_24"
+        app:iconTint="@color/white"
+        />
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/description_et_background"
-            android:elevation="8dp"
             android:orientation="vertical"
-            android:padding="3dp">
 
-            <TextView
+            >
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:paddingLeft="10dp"
-                android:text="Event Type"
-                android:textColor="@color/APP_Theme_Color"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/description_et_background"
+                android:elevation="8dp"
+                android:orientation="vertical"
+                android:padding="3dp">
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginBottom="2dp"
-                android:background="@color/gray" />
-
-            <Spinner
-                android:id="@+id/spinner_event"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="2dp"
-                android:background="@color/gray" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/description_et_background"
-            android:elevation="8dp"
-            android:orientation="vertical"
-            android:padding="3dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:paddingLeft="10dp"
-                android:text="Guest Type"
-                android:textColor="@color/APP_Theme_Color"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginBottom="2dp"
-                android:background="@color/gray" />
-
-            <Spinner
-                android:id="@+id/spinner_guest_type_selection"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/gray"
-                android:layout_marginVertical="20dp"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:background="@color/white"
-                android:paddingLeft="10dp"
-                android:text="select participents"
-                android:textColor="@color/APP_Theme_Color"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginBottom="2dp"
-                android:background="@color/gray" />
-
-            <Spinner
-                android:id="@+id/spinner_guests_selection"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="2dp"
-                android:background="@color/gray" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="12dp"
-            android:background="@drawable/description_et_background"
-            android:elevation="8dp"
-            android:orientation="vertical"
-            android:padding="3dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:paddingLeft="10dp"
-                android:text="Location"
-                android:textColor="@color/APP_Theme_Color"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/white"
-                android:hint="Address"
-                app:hintTextColor="@color/APP_Theme_Color"
-                app:startIconDrawable="@drawable/ic_baseline_public_24"
-                app:startIconTint="@color/APP_Theme_Color">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/address_et"
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
-                android:id="@+id/text_view_select_location"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="@color/white"
-                android:padding="10dp"
-                android:text="Select Location "
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:drawablePadding="10dp"
-                android:drawableStart="@drawable/ic_baseline_location_on_24"
-                android:drawableLeft="@drawable/ic_baseline_location_on_24" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="4dp"
-                android:background="@color/gray" />
-        </LinearLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/edit_text_layout_purpose"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="12dp"
-            android:elevation="8dp"
-            app:boxBackgroundColor="@color/white"
-            android:hint="Purpose"
-            app:boxStrokeColor="@color/gray"
-            app:boxStrokeWidth="1dp"
-            app:boxCornerRadiusTopEnd="5dp"
-            app:boxCornerRadiusBottomStart="5dp"
-            app:boxCornerRadiusBottomEnd="5dp"
-            app:boxCornerRadiusTopStart="5dp"
-            app:hintTextColor="@color/APP_Theme_Color"
-            app:startIconDrawable="@drawable/ic_baseline_assignment_24"
-            app:startIconTint="@color/APP_Theme_Color">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_text_purpose"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:maxLines="1" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <EditText
-            android:id="@+id/description_et"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="12dp"
-            android:background="@drawable/description_et_background"
-            android:elevation="8dp"
-            android:gravity="top"
-            android:hint="Description"
-            android:minHeight="100dp"
-            android:paddingLeft="10dp"
-            android:paddingTop="8dp"
-            />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="12dp"
-            android:background="@drawable/description_et_background"
-            android:orientation="vertical"
-            android:padding="3dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:padding="10dp"
-                android:text="Event Time"
-                android:textColor="@color/APP_Theme_Color"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <Switch
-                android:id="@+id/all_day_switch"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:padding="8dp"
-                android:paddingStart="20dp"
-                android:text="All day"
-                android:paddingLeft="20dp" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/gray" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white"
-                android:elevation="5dp">
-
-                <TextView
-                    android:id="@+id/date_start"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="44dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="20dp"
-                    android:inputType="none"
-                    android:padding="3dp"
-                    android:text="Select Date"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toTopOf="@+id/date_End"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.25"
-                    android:layout_marginLeft="44dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Date from"
+                    android:layout_marginBottom="4dp"
+                    android:paddingLeft="10dp"
+                    android:text="Event Type"
                     android:textColor="@color/APP_Theme_Color"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@+id/date_start"
-                    app:layout_constraintStart_toStartOf="@+id/date_start" />
-
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="To Date"
-                    android:textColor="@color/APP_Theme_Color"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@+id/date_End"
-                    app:layout_constraintStart_toStartOf="@+id/date_End" />
-
-                <TextView
-                    android:id="@+id/date_End"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:inputType="none"
-                    android:padding="3dp"
-                    android:text="Select Date"
-                    android:textColor="@color/black"
                     android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/date_start" />
-
-                <TextView
-                    android:id="@+id/time_start"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="44dp"
-                    android:inputType="none"
-                    android:padding="3dp"
-                    android:text="SelectTime"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginRight="44dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Time From"
-                    android:textColor="@color/APP_Theme_Color"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@+id/time_start"
-                    app:layout_constraintStart_toStartOf="@+id/time_start" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="To Time"
-                    android:textColor="@color/APP_Theme_Color"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@+id/time_End"
-                    app:layout_constraintStart_toStartOf="@+id/time_End" />
-
-                <TextView
-                    android:id="@+id/time_End"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="16dp"
-                    android:inputType="none"
-                    android:padding="3dp"
-                    android:text="Select Time"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/time_start"
-                    app:layout_constraintTop_toBottomOf="@+id/time_start" />
+                    android:textStyle="bold" />
 
                 <View
-                    android:id="@+id/view"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="2dp"
+                    android:background="@color/gray" />
+
+                <Spinner
+                    android:id="@+id/spinner_event"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="2dp"
+                    android:background="@color/gray" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/description_et_background"
+                android:elevation="8dp"
+                android:orientation="vertical"
+                android:padding="3dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:paddingLeft="10dp"
+                    android:text="Guest Type"
+                    android:textColor="@color/APP_Theme_Color"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="2dp"
+                    android:background="@color/gray" />
+
+                <Spinner
+                    android:id="@+id/spinner_guest_type_selection"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/gray"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/date_start"
-                    />
+                    android:layout_marginVertical="20dp"/>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/description_et_background"
-            android:elevation="8dp"
-            android:orientation="vertical"
-            android:padding="3dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:background="@color/white"
+                    android:paddingLeft="10dp"
+                    android:text="select participents"
+                    android:textColor="@color/APP_Theme_Color"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
-            <TextView
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="2dp"
+                    android:background="@color/gray" />
+
+                <Spinner
+                    android:id="@+id/spinner_guests_selection"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="2dp"
+                    android:background="@color/gray" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:background="@drawable/description_et_background"
+                android:elevation="8dp"
+                android:orientation="vertical"
+                android:padding="3dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:paddingLeft="10dp"
+                    android:text="Location"
+                    android:textColor="@color/APP_Theme_Color"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/white"
+                    android:hint="Address"
+                    app:hintTextColor="@color/APP_Theme_Color"
+                    app:startIconDrawable="@drawable/ic_baseline_public_24"
+                    app:startIconTint="@color/APP_Theme_Color">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/address_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/text_view_select_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/white"
+                    android:padding="10dp"
+                    android:text="Select Location "
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:drawablePadding="10dp"
+                    android:drawableStart="@drawable/ic_baseline_location_on_24"
+                    android:drawableLeft="@drawable/ic_baseline_location_on_24" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:background="@color/gray" />
+            </LinearLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/edit_text_layout_purpose"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="12dp"
+                android:elevation="8dp"
+                app:boxBackgroundColor="@color/white"
+                android:hint="Purpose"
+                app:boxStrokeColor="@color/gray"
+                app:boxStrokeWidth="1dp"
+                app:boxCornerRadiusTopEnd="5dp"
+                app:boxCornerRadiusBottomStart="5dp"
+                app:boxCornerRadiusBottomEnd="5dp"
+                app:boxCornerRadiusTopStart="5dp"
+                app:hintTextColor="@color/APP_Theme_Color"
+                app:startIconDrawable="@drawable/ic_baseline_assignment_24"
+                app:startIconTint="@color/APP_Theme_Color">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_text_purpose"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <EditText
+                android:id="@+id/description_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="12dp"
+                android:background="@drawable/description_et_background"
+                android:elevation="8dp"
+                android:gravity="top"
+                android:hint="Description"
+                android:minHeight="100dp"
                 android:paddingLeft="10dp"
-                android:text="Reminder"
-                android:textColor="@color/APP_Theme_Color"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginBottom="2dp"
-                android:background="@color/gray" />
-
-            <Spinner
-                android:id="@+id/spinner_reminder"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="2dp"
-                android:background="@color/gray" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/description_et_background"
-            android:elevation="8dp"
-            android:orientation="vertical"
-            android:padding="3dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:paddingLeft="10dp"
-                android:text="Add Notification"
-                android:textColor="@color/APP_Theme_Color"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginBottom="2dp"
-                android:background="@color/gray" />
-
-            <Spinner
-                android:id="@+id/spinner_add_notification"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="2dp"
-                android:background="@color/gray" />
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            >
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_add"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/add"
-                app:backgroundTint="@color/white"
-                android:textColor="@color/APP_Theme_Color"
-                app:strokeColor="@color/APP_Theme_Color"
-                app:strokeWidth="1dp"
-                android:layout_margin="20dp"
+                android:paddingTop="8dp"
                 />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_cancel"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/cancel"
-                app:backgroundTint="@color/white"
-                android:textColor="@color/APP_Theme_Color"
-                app:strokeColor="@color/APP_Theme_Color"
-                app:strokeWidth="1dp"
-                android:layout_margin="20dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="12dp"
+                android:background="@drawable/description_et_background"
+                android:orientation="vertical"
+                android:padding="3dp">
 
-                />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:padding="10dp"
+                    android:text="Event Time"
+                    android:textColor="@color/APP_Theme_Color"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <Switch
+                    android:id="@+id/all_day_switch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:padding="8dp"
+                    android:paddingStart="20dp"
+                    android:text="All day"
+                    android:paddingLeft="20dp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gray" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:elevation="5dp">
+
+                    <TextView
+                        android:id="@+id/date_start"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="44dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:inputType="none"
+                        android:padding="3dp"
+                        android:text="Select Date"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toTopOf="@+id/date_End"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.25"
+                        android:layout_marginLeft="44dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Date from"
+                        android:textColor="@color/APP_Theme_Color"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toTopOf="@+id/date_start"
+                        app:layout_constraintStart_toStartOf="@+id/date_start" />
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="To Date"
+                        android:textColor="@color/APP_Theme_Color"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toTopOf="@+id/date_End"
+                        app:layout_constraintStart_toStartOf="@+id/date_End" />
+
+                    <TextView
+                        android:id="@+id/date_End"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:inputType="none"
+                        android:padding="3dp"
+                        android:text="Select Date"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/date_start" />
+
+                    <TextView
+                        android:id="@+id/time_start"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="44dp"
+                        android:inputType="none"
+                        android:padding="3dp"
+                        android:text="SelectTime"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_marginRight="44dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Time From"
+                        android:textColor="@color/APP_Theme_Color"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toTopOf="@+id/time_start"
+                        app:layout_constraintStart_toStartOf="@+id/time_start" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="To Time"
+                        android:textColor="@color/APP_Theme_Color"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toTopOf="@+id/time_End"
+                        app:layout_constraintStart_toStartOf="@+id/time_End" />
+
+                    <TextView
+                        android:id="@+id/time_End"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="16dp"
+                        android:inputType="none"
+                        android:padding="3dp"
+                        android:text="Select Time"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/time_start"
+                        app:layout_constraintTop_toBottomOf="@+id/time_start" />
+
+                    <View
+                        android:id="@+id/view"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/gray"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/date_start"
+                        />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/description_et_background"
+                android:elevation="8dp"
+                android:orientation="vertical"
+                android:padding="3dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:paddingLeft="10dp"
+                    android:text="Reminder"
+                    android:textColor="@color/APP_Theme_Color"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="2dp"
+                    android:background="@color/gray" />
+
+                <Spinner
+                    android:id="@+id/spinner_reminder"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="2dp"
+                    android:background="@color/gray" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/description_et_background"
+                android:elevation="8dp"
+                android:orientation="vertical"
+                android:padding="3dp"
+                >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:paddingLeft="10dp"
+                    android:text="Add Notification"
+                    android:textColor="@color/APP_Theme_Color"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="2dp"
+                    android:background="@color/gray" />
+
+                <Spinner
+                    android:id="@+id/spinner_add_notification"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="2dp"
+                    android:background="@color/gray" />
+            </LinearLayout>
+
+
+
 
         </LinearLayout>
 
-    </LinearLayout>
+    </ScrollView>
 
-</ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
 
