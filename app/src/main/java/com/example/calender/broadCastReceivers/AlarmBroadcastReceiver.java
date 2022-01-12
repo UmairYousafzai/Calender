@@ -11,15 +11,9 @@ import com.example.calender.services.AlarmService;
 import java.util.Calendar;
 
 public class AlarmBroadcastReceiver extends BroadcastReceiver {
+    public static final String ACTION_TURN_ON_ALARM=  "alarm notification on";
 
-    public static final String MONDAY = "MONDAY";
-    public static final String TUESDAY = "TUESDAY";
-    public static final String WEDNESDAY = "WEDNESDAY";
-    public static final String THURSDAY = "THURSDAY";
-    public static final String FRIDAY = "FRIDAY";
-    public static final String SATURDAY = "SATURDAY";
-    public static final String SUNDAY = "SUNDAY";
-    public static final String RECURRING = "RECURRING";
+
     public static final String TITLE = "TITLE";
 
     @Override
@@ -42,6 +36,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
     private void startAlarmService(Context context, Intent intent) {
         Intent intentService = new Intent(context, AlarmService.class);
         intentService.putExtra(TITLE, intent.getStringExtra(TITLE));
+        intentService.setAction(ACTION_TURN_ON_ALARM);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             context.startForegroundService(intentService);
         } else {

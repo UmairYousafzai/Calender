@@ -439,49 +439,6 @@
                     android:background="@color/gray" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="12dp"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/description_et_background"
-                android:elevation="8dp"
-                android:orientation="vertical"
-                android:padding="3dp"
-                >
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
-                    android:paddingLeft="10dp"
-                    android:text="Add Notification"
-                    android:textColor="@color/APP_Theme_Color"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginBottom="2dp"
-                    android:background="@color/gray" />
-
-                <Spinner
-                    android:id="@+id/spinner_add_notification"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="2dp"
-                    android:background="@color/gray" />
-            </LinearLayout>
-
-
-
 
         </LinearLayout>
 

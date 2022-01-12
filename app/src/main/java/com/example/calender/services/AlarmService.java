@@ -1,13 +1,10 @@
 package com.example.calender.services;
 
 import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -19,13 +16,17 @@ import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
 import com.example.calender.R;
+import com.example.calender.broadCastReceivers.AlarmBroadcastReceiver;
+
+import static com.example.calender.App.ALARM_NOTIFICATION_CHANNEL_ID;
 
 public class AlarmService extends Service {
 
     private static final String TITLE ="title" ;
 //    private MediaPlayer mediaPlayer;
     private Vibrator vibrator;
-
+    public static final String ACTION_TURN_OFF_ALARM=  "alarm notification off";
+    private Ringtone ringtone;
     @Override
     public void onCreate() {
         super.onCreate();
@@ -46,13 +47,27 @@ public class AlarmService extends Service {
 
 
 
-        NotificationManager mNotificationManager;
+
+
+        if (intent.getAction().equals(ACTION_TURN_OFF_ALARM))
+        {
+            ringtone.stop();
+            stopForeground(true);
+        }else if (intent.getAction().equals(AlarmBroadcastReceiver.ACTION_TURN_ON_ALARM))
+        {
+            showNotification(intent.getStringExtra(TITLE));
+        }
+
+        return START_STICKY;
+    }
+
+    private void showNotification(String title) {
 
         Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
-        Ringtone r = RingtoneManager.getRingtone(this, notification);
-        r.play();
+         ringtone = RingtoneManager.getRingtone(this, notification);
+        ringtone.play();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            r.setLooping(false);
+            ringtone.setLooping(true);
         }
 
         // vibration
@@ -61,42 +76,37 @@ public class AlarmService extends Service {
         v.vibrate(pattern, -1);
 
 
-
-
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "CHANNEL_ID");
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, ALARM_NOTIFICATION_CHANNEL_ID);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            builder.setSmallIcon(R.drawable.ic_baseline_access_alarm_24);
+            notificationBuilder.setSmallIcon(R.drawable.ic_baseline_access_alarm_24);
         } else {
-            builder.setSmallIcon(R.drawable.ic_baseline_access_alarm_24);
+            notificationBuilder.setSmallIcon(R.drawable.ic_baseline_access_alarm_24);
         }
 
+        Intent intent = new Intent(this,AlarmService.class);
+        intent.setAction(ACTION_TURN_OFF_ALARM);
 
-        builder.setContentTitle("FFC");
-        builder.setContentText("Ring Ring .. Ring Ring");
-        builder.setStyle(new NotificationCompat.BigTextStyle().bigText("Ring Ring .. Ring Ring"));
-        builder.setPriority(Notification.PRIORITY_MAX);
-
+        PendingIntent turnOffAlarmIntent= PendingIntent.getService(this,100,intent,0);
 
 
-        mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationBuilder.setContentTitle("FFC");
+        notificationBuilder.setCategory(NotificationCompat.CATEGORY_REMINDER);
+        notificationBuilder.setContentText("Ring Ring .. Ring Ring");
+        notificationBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText("Ring Ring .. Ring Ring"));
+        notificationBuilder.setPriority(Notification.PRIORITY_HIGH);
 
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            String channelId = "Your_channel_id";
-            NotificationChannel channel = new NotificationChannel(
-                    channelId,
-                    "Channel human readable title",
-                    NotificationManager.IMPORTANCE_HIGH);
-            mNotificationManager.createNotificationChannel(channel);
-            builder.setChannelId(channelId);
-        }
+        notificationBuilder.addAction(new NotificationCompat.Action(0,"Turn off",turnOffAlarmIntent));
 
 
 
 
-        startForeground(1, builder.build());
 
-        return START_STICKY;
+
+
+
+
+        startForeground(1, notificationBuilder.build());
+
     }
 
     @Override
