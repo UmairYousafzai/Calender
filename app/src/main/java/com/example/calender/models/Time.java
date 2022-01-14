@@ -1,9 +1,13 @@
 package com.example.calender.models;
 
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-@Entity
+import static androidx.room.ForeignKey.CASCADE;
+
+@Entity(foreignKeys = @ForeignKey(entity = Event.class,parentColumns ="eventID",
+        childColumns = "eventID",onDelete = CASCADE))
 public class Time {
 
     private int eventID;

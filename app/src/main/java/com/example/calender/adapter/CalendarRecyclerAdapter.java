@@ -3,17 +3,22 @@ package com.example.calender.adapter;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.calender.R;
 import com.example.calender.clickListener.OnCLickListener;
 import com.example.calender.databinding.CalendarCellLayoutBinding;
 import com.example.calender.models.CustomDate;
+import com.example.calender.models.Event;
+import com.example.calender.util.DataRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,12 +32,16 @@ public class CalendarRecyclerAdapter extends RecyclerView.Adapter<CalendarRecycl
 
     private OnCLickListener listener;
     private View view;
-    private Context context;
+
+    private DataRepository dataRepository;
+    private Event event = new Event();
+    private Fragment fragment;
 
 
-    public CalendarRecyclerAdapter(Context context) {
+    public CalendarRecyclerAdapter(Context context, Fragment fragment) {
         customDateList = new ArrayList<>();
-        this.context = context;
+        dataRepository= new DataRepository(context);
+        this.fragment = fragment;
     }
 
     @NonNull
@@ -59,11 +68,12 @@ public class CalendarRecyclerAdapter extends RecyclerView.Adapter<CalendarRecycl
         {
             if (customDate.isCurrentDate())
             {
-                holder.mBinding.dateTextView.setTextColor(Color.parseColor("#286A9C"));
-                holder.mBinding.dateTextView.setTypeface(holder.mBinding.dateTextView.getTypeface(), Typeface.BOLD);
-                holder.mBinding.dateTextView.setTextSize(30f);
+                holder.mBinding.dateTextView.setTextColor(Color.parseColor("#FFFFFFFF"));
+//                holder.mBinding.dateTextView.setTypeface(holder.mBinding.dateTextView.getTypeface(), Typeface.BOLD);
+//                holder.mBinding.dateTextView.setTextSize(20f);
+                holder.mBinding.dateTextView.setBackground(fragment.getResources().getDrawable(R.drawable.text_view_bg));
                 holder.mBinding.dateTextView.setText(String.valueOf(customDate.getDay()));
-                holder.mBinding.dateTextView.setCompoundDrawablesWithIntrinsicBounds(0,R.drawable.ic_baseline_circle_24, 0, 0);
+//                holder.mBinding.dateTextView.setCompoundDrawablesWithIntrinsicBounds(0,R.drawable.ic_baseline_circle_24, 0, 0);
 //                holder.mBinding.dateTextView.setTextColor(Color.parseColor("#FF000000"));
 //                holder.mBinding.dateTextView.setTypeface(holder.mBinding.dateTextView.getTypeface(), Typeface.NORMAL);
 
@@ -71,6 +81,23 @@ public class CalendarRecyclerAdapter extends RecyclerView.Adapter<CalendarRecycl
             {
                 holder.mBinding.dateTextView.setText(String.valueOf(customDate.getDay()));
             }
+
+            String date =customDate.getDateSting();
+            dataRepository.getEventByDate(date).observe(fragment, new Observer<Event>() {
+                @Override
+                public void onChanged(Event event) {
+                    if (event!=null)
+                    {
+                        holder.mBinding.schedule.setText(event.getDescription());
+                        holder.mBinding.schedule.setVisibility(View.VISIBLE);
+                    }
+
+                }
+            });
+
+
+
+
 
         }
 

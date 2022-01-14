@@ -45,7 +45,7 @@ public class DataRepository {
         });
     }
 
-    public void insertEventGuest(EventGuest eventGuest) {
+    public void insertEventGuest(List<EventGuest> eventGuest) {
         executor.execute(new Runnable() {
             @Override
             public void run() {
@@ -54,7 +54,7 @@ public class DataRepository {
         });
     }
 
-    public void insertTime(Time time) {
+    public void insertTime(List<Time> time) {
         executor.execute(new Runnable() {
             @Override
             public void run() {
@@ -93,6 +93,16 @@ public class DataRepository {
     public LiveData<List<Event>> getEvents()
     {
         return allEvents;
+    }
+
+    public Event getLastEvent()
+    {
+        return mDao.getLastEvent();
+    }
+
+    public LiveData<Event> getEventByDate(String date)
+    {
+        return mDao.getEventByDate(date);
     }
   public LiveData<List<EventGuest>> getEventGuests()
     {

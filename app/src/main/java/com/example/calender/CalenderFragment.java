@@ -95,7 +95,7 @@ public class CalenderFragment extends Fragment {
     private void setUpRecyclerView() {
 
         mBinding.calenderCellRecyclerView.setLayoutManager(new GridLayoutManager(requireContext(),7));
-        adapter = new CalendarRecyclerAdapter(requireContext());
+        adapter = new CalendarRecyclerAdapter(requireContext(),this);
         mBinding.calenderCellRecyclerView.setAdapter(adapter);
 
     }

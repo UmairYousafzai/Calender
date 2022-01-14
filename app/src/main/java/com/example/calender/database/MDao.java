@@ -16,7 +16,7 @@ import java.util.List;
 public interface MDao {
 
     @Insert
-     void insertTime(Time time);
+     void insertTime(List<Time> time);
 
     @Delete
     void deleteTime(Time time);
@@ -31,10 +31,16 @@ public interface MDao {
     @Delete
     void deleteEvent(Event event);
 
+    @Query("SELECT * FROM Event WHERE eventID=(SELECT max(eventID) FROM event)")
+    Event getLastEvent();
+
+    @Query("SELECT * FROM Event WHERE eventID=(select eventID from Time where date= :date)")
+    LiveData<Event> getEventByDate(String date);
+
     @Query("select *from Event")
     LiveData<List<Event>> getEvents();
   @Insert
-     void insertEventGuest(EventGuest eventGuest);
+     void insertEventGuest(List<EventGuest> eventGuest);
 
     @Delete
     void deleteEventGuest(EventGuest eventGuest);

@@ -12,8 +12,17 @@ public class Event {
     private String address;
     private String coordinates;
     private String description;
+    private String reminder;
     private boolean isAllDay;
 
+
+    public String getReminder() {
+        return reminder;
+    }
+
+    public void setReminder(String reminder) {
+        this.reminder = reminder;
+    }
 
     public int getEventID() {
         return eventID;

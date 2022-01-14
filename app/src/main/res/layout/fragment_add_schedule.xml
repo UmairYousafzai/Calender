@@ -2,9 +2,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/background_color"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
@@ -81,9 +81,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
-                android:layout_marginBottom="20dp"
                 android:background="@drawable/description_et_background"
-                android:elevation="8dp"
                 android:orientation="vertical"
                 android:padding="3dp">
 
@@ -112,7 +110,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/gray"
-                    android:layout_marginVertical="20dp"/>
+                    android:layout_marginVertical="10dp"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -120,7 +118,7 @@
                     android:layout_marginBottom="4dp"
                     android:background="@color/white"
                     android:paddingLeft="10dp"
-                    android:text="select participents"
+                    android:text="Select Participants"
                     android:textColor="@color/APP_Theme_Color"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -141,7 +139,61 @@
                     android:layout_height="1dp"
                     android:layout_marginTop="2dp"
                     android:background="@color/gray" />
+
+
+
             </LinearLayout>
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:orientation="horizontal"
+             android:background="@color/white"
+             android:layout_marginHorizontal="12dp"
+             android:layout_marginBottom="20dp"
+             android:elevation="5dp"
+             android:weightSum="1"
+             android:gravity="center"
+             >
+
+             <TextView
+                 android:id="@+id/tv_selected_guest"
+                 android:layout_width="0dp"
+                 android:layout_height="wrap_content"
+                 android:layout_marginHorizontal="10dp"
+                 android:layout_weight="0.8"
+                 android:background="@color/white"
+                 android:lines="6"
+                 android:inputType="textMultiLine"
+                 android:padding="10dp"
+                 android:text=""
+                 android:textSize="15sp" />
+
+             <View
+                 android:layout_width="1dp"
+                 android:layout_height="match_parent"
+                 android:background="@color/gray"/>
+             <ImageButton
+                 android:id="@+id/btn_add"
+                 android:layout_width="0dp"
+                 android:layout_height="match_parent"
+                 android:src="@drawable/ic_baseline_add_24"
+                 android:background="@android:color/transparent"
+                 android:layout_weight="0.1"
+                 />
+             <View
+                 android:layout_width="1dp"
+                 android:layout_height="match_parent"
+                 android:background="@color/gray"/>
+             <ImageButton
+                 android:id="@+id/btn_view"
+                 android:layout_width="0dp"
+                 android:layout_height="match_parent"
+                 android:src="@drawable/ic_baseline_preview_24"
+                 android:background="@android:color/transparent"
+             android:layout_weight="0.1"
+
+             />
+         </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"

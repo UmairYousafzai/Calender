@@ -78,7 +78,13 @@ public class CustomDate implements Parcelable {
         return month;
     }
 
+
     public void setMonth(int month) {
         this.month = month;
+    }
+
+    public String getDateSting()
+    {
+        return day+"-"+month+"-"+year;
     }
 }

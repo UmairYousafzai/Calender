@@ -24,10 +24,7 @@ public class Alarm {
 
 
     public Alarm(int alarmId, int hour, int minute,
-                 String title, boolean started, boolean recurring,
-                 boolean monday, boolean tuesday, boolean wednesday,
-                 boolean thursday, boolean friday, boolean saturday,
-                 boolean sunday,boolean daily,boolean monthly,boolean yearly,
+                 String title, boolean started,
                  int day,int month, int year) {
         this.alarmId = alarmId;
         this.hour = hour;
